@@ -1,29 +1,38 @@
-import { Button } from '@/components/ui/button';
+'use client';
+
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from '@/components/ui/select';
-import { getAllCategories } from '@/lib/actions/product.actions';
 import { SearchIcon } from 'lucide-react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const Search = async () => {
-  const categories = await getAllCategories();
+export default function Search({ categories }: { categories: { category: string }[] }) {
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
-    <form action='/search' method='GET'>
-      <div className='flex w-full max-w-sm items-center space-x-2'>
-        <Select name='category'>
-          <SelectTrigger className='w-[180px]'>
-            <SelectValue placeholder='All' />
+    <div className="flex flex-col gap-2">
+      {/* 💡 Message d'encouragement */}
+      <p className="text-xs text-yellow-600 font-medium animate-pulse">
+        🔍 Utilisez la recherche pour trouver rapidement votre voiture idéale !
+      </p>
+
+      {/* 🔎 Barre de recherche */}
+      <form action="/search" method="GET" className="flex gap-2 items-center">
+        <Select name="category">
+          <SelectTrigger className="w-[60px]">
+            <SelectValue placeholder="All" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem key='All' value='all'>
-              All
-            </SelectItem>
+            <SelectItem value="all">All</SelectItem>
             {categories.map((x) => (
               <SelectItem key={x.category} value={x.category}>
                 {x.category}
@@ -31,18 +40,33 @@ const Search = async () => {
             ))}
           </SelectContent>
         </Select>
-        <Input
-          name='q'
-          type='text'
-          placeholder='Search...'
-          className='md:w-[100px] lg:w-[300px]'
-        />
-        <Button>
-          <SearchIcon />
-        </Button>
-      </div>
-    </form>
-  );
-};
 
-export default Search;
+        <Input
+          name="q"
+          placeholder="Rechercher..."
+          className="w-[150px] text-sm"
+        />
+
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          placeholderText="Date début"
+          name="startDate"
+          className="w-[100px] text-sm px-2 py-1 border rounded"
+        />
+
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          placeholderText="Date fin"
+          name="endDate"
+          className="w-[100px] text-sm px-2 py-1 border rounded"
+        />
+
+        <Button type="submit">
+          <SearchIcon className="w-4 h-4" />
+        </Button>
+      </form>
+    </div>
+  );
+}

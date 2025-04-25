@@ -42,6 +42,8 @@ export async function getAllProducts({
   price,
   rating,
   sort,
+  startDate,
+  endDate,
 }: {
   query: string;
   limit?: number;
@@ -50,6 +52,8 @@ export async function getAllProducts({
   price?: string;
   rating?: string;
   sort?: string;
+  startDate?: string;
+  endDate?: string;
 }) {
   // Query filter
   const queryFilter: Prisma.ProductWhereInput =
@@ -58,7 +62,7 @@ export async function getAllProducts({
           name: {
             contains: query,
             mode: 'insensitive',
-          } as Prisma.StringFilter,
+          },
         }
       : {};
 
@@ -86,12 +90,28 @@ export async function getAllProducts({
         }
       : {};
 
+  // Availability filter
+  const availabilityFilter: Prisma.ProductWhereInput =
+    startDate && endDate
+      ? {
+          reservations: {
+            none: {
+              AND: [
+                { startDate: { lte: new Date(endDate) } },
+                { endDate: { gte: new Date(startDate) } },
+              ],
+            },
+          },
+        }
+      : {};
+
   const data = await prisma.product.findMany({
     where: {
       ...queryFilter,
       ...categoryFilter,
       ...priceFilter,
       ...ratingFilter,
+      ...availabilityFilter,
     },
     orderBy:
       sort === 'lowest'
@@ -197,4 +217,33 @@ export async function getFeaturedProducts() {
   });
 
   return convertToPlainObject(data);
+}
+
+// Optional: keep this for manual use
+export async function getAvailableCars({
+  startDate,
+  endDate,
+}: {
+  startDate: string;
+  endDate: string;
+}) {
+  if (!startDate || !endDate) return [];
+
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const cars = await prisma.product.findMany({
+    where: {
+      reservations: {
+        none: {
+          AND: [
+            { startDate: { lte: end } },
+            { endDate: { gte: start } },
+          ],
+        },
+      },
+    },
+  });
+
+  return cars;
 }

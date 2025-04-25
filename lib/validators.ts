@@ -57,6 +57,10 @@ export const cartItemSchema = z.object({
   qty: z.number().int().nonnegative('Quantity must be a positive number'),
   image: z.string().min(1, 'Image is required'),
   price: currency,
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  totalDays: z.number().optional(),
+  totalPrice: z.number().optional(),
 });
 
 export const insertCartSchema = z.object({
