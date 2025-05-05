@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="w-full border-b bg-white shadow-sm">
       <div className="wrapper flex items-center justify-between py-4">
-        {/* Logo + Nom */}
+        
         <div className="flex items-center gap-4">
           <CategoryDrawer />
           <Link href="/" className="flex items-center gap-3">
@@ -24,12 +24,12 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Search */}
+        
         <div className="flex-1 mx-6 hidden lg:block">
           <SearchWrapper />
         </div>
 
-        {/* Menu (cart + login) */}
+       
         <div className="flex items-center gap-4">
           <Menu />
         </div>

@@ -59,10 +59,10 @@ const AddToCart = ({ cart, item, startDate, endDate }: Props) => {
         action: (
           <ToastAction
             className='bg-primary text-white hover:bg-gray-800'
-            altText='Go To Cart'
+            altText='Aller au panier'
             onClick={() => router.push('/cart')}
           >
-            Go To Cart
+            Aller au panier
           </ToastAction>
         ),
       });
@@ -72,7 +72,7 @@ const AddToCart = ({ cart, item, startDate, endDate }: Props) => {
   return (
     <Button className='w-full' onClick={handleAddToCart}>
       {isPending ? <Loader className='w-4 h-4 animate-spin' /> : <Plus className='w-4 h-4' />}
-      Add To Cart
+      Ajouter au panier
     </Button>
   );
 };

@@ -9,11 +9,10 @@ import {
   paymentResultSchema,
   insertReviewSchema,
 } from '@/lib/validators';
+import { Reservation as PrismaReservation, Product as PrismaProduct } from '@prisma/client';
 
 export type Product = z.infer<typeof insertProductSchema> & {
   id: string;
-  rating: string;
-  numReviews: number;
   createdAt: Date;
 };
 
@@ -42,4 +41,7 @@ export type CartItem = z.infer<typeof cartItemSchema> & {
   endDate?: string;
   totalDays?: number;
   totalPrice?: number;
+};
+export type Reservation = PrismaReservation & {
+  product: Product;
 };

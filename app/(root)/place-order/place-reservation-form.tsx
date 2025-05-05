@@ -4,22 +4,22 @@ import { useRouter } from 'next/navigation';
 import { Check, Loader } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useFormStatus } from 'react-dom';
-import { createOrder } from '@/lib/actions/order.actions';
+import { createReservation } from '@/lib/actions/reservation.actions';
 
-const PlaceOrderForm = () => {
+const PlaceReservationForm = () => {
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const res = await createOrder();
+    const res = await createReservation();
 
     if (res.redirectTo) {
       router.push(res.redirectTo);
     }
   };
 
-  const PlaceOrderButton = () => {
+  const PlaceReservationButton = () => {
     const { pending } = useFormStatus();
     return (
       <Button disabled={pending} className='w-full'>
@@ -28,16 +28,17 @@ const PlaceOrderForm = () => {
         ) : (
           <Check className='w-4 h-4' />
         )}{' '}
-        Place Order
+        Confirmer la réservation
       </Button>
     );
   };
 
   return (
     <form onSubmit={handleSubmit} className='w-full'>
-      <PlaceOrderButton />
+      <PlaceReservationButton />
     </form>
   );
 };
 
-export default PlaceOrderForm;
+export default PlaceReservationForm;
+

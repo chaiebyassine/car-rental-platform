@@ -6,19 +6,19 @@ import React from 'react';
 
 const links = [
   {
-    title: 'Overview',
+    title: 'aperçu',
     href: '/admin/overview',
   },
   {
-    title: 'Products',
+    title: 'Produit',
     href: '/admin/products',
   },
   {
-    title: 'Orders',
-    href: '/admin/orders',
+    title: 'reservation',
+    href: '/admin/reservation',
   },
   {
-    title: 'Users',
+    title: 'utilisateur',
     href: '/admin/users',
   },
 ];

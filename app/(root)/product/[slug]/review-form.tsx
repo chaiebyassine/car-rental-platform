@@ -98,15 +98,15 @@ const ReviewForm = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <Button onClick={handleOpenForm} variant='default'>
-        Write a Review
+      Écrire un avis
       </Button>
       <DialogContent className='sm:max-w-[425px]'>
         <Form {...form}>
           <form method='post' onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
-              <DialogTitle>Write a Review</DialogTitle>
+              <DialogTitle>Écrire un avis</DialogTitle>
               <DialogDescription>
-                Share your thoughts with other customers
+              Partagez vos idées avec d'autres clients
               </DialogDescription>
             </DialogHeader>
             <div className='grid gap-4 py-4'>
@@ -115,7 +115,7 @@ const ReviewForm = ({
                 name='title'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Titre</FormLabel>
                     <FormControl>
                       <Input placeholder='Enter title' {...field} />
                     </FormControl>
@@ -142,7 +142,7 @@ const ReviewForm = ({
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel>Rating</FormLabel>
+                      <FormLabel>Notation</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value.toString()}

@@ -1,3 +1,4 @@
+
 import {
   Table,
   TableBody,
@@ -7,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getOrderSummary } from '@/lib/actions/order.actions';
+import { getReservationSummary } from '@/lib/actions/reservation.actions';
 import { formatCurrency, formatDateTime, formatNumber } from '@/lib/utils';
 import { BadgeDollarSign, Barcode, CreditCard, Users } from 'lucide-react';
 import { Metadata } from 'next';
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 const AdminOverviewPage = async () => {
   await requireAdmin();
 
-  const summary = await getOrderSummary();
+  const summary = await getReservationSummary();
 
   return (
     <div className='space-y-2'>
@@ -35,15 +36,13 @@ const AdminOverviewPage = async () => {
           </CardHeader>
           <CardContent>
             <div className='text-2xl font-bold'>
-              {formatCurrency(
-                summary.totalSales._sum.totalPrice?.toString() || 0
-              )}
+              {formatCurrency(summary.totalSales._sum.totalPrice?.toString() || '0')}
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-            <CardTitle className='text-sm font-medium'>Sales</CardTitle>
+            <CardTitle className='text-sm font-medium'>Reservations</CardTitle>
             <CreditCard />
           </CardHeader>
           <CardContent>
@@ -75,46 +74,64 @@ const AdminOverviewPage = async () => {
           </CardContent>
         </Card>
       </div>
+
       <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-7'>
         <Card className='col-span-4'>
           <CardHeader>
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent>
-            <Charts
-              data={{
-                salesData: summary.salesData,
-              }}
-            />
+            <Charts data={{ salesData: summary.salesData }} />
           </CardContent>
         </Card>
+
         <Card className='col-span-3'>
           <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
+            <CardTitle>Réservations en cours de traitement</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>BUYER</TableHead>
-                  <TableHead>DATE</TableHead>
-                  <TableHead>TOTAL</TableHead>
-                  <TableHead>ACTIONS</TableHead>
+                  <TableHead>Client</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Total</TableHead>
+                  <TableHead>Payée</TableHead>
+                  <TableHead>Livrée</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {summary.latestSales.map((order) => (
-                  <TableRow key={order.id}>
+                {summary.latestSales.map((reservation) => (
+                  <TableRow key={reservation.id}>
+                    <TableCell>{reservation?.user?.name || 'Utilisateur supprimé'}</TableCell>
+                    <TableCell>{formatDateTime(reservation.createdAt).dateOnly}</TableCell>
+                    <TableCell>{formatCurrency(reservation.totalPrice)}</TableCell>
                     <TableCell>
-                      {order?.user?.name ? order.user.name : 'Deleted User'}
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          reservation.isPaid
+                            ? 'bg-green-100 text-green-700'
+                            : 'bg-yellow-100 text-yellow-700'
+                        }`}
+                      >
+                        {reservation.isPaid ? 'Payée' : 'Non payée'}
+                      </span>
                     </TableCell>
                     <TableCell>
-                      {formatDateTime(order.createdAt).dateOnly}
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          reservation.isDelivered
+                            ? 'bg-green-100 text-green-700'
+                            : 'bg-red-100 text-red-700'
+                        }`}
+                      >
+                        {reservation.isDelivered ? 'Livrée' : 'Non livrée'}
+                      </span>
                     </TableCell>
-                    <TableCell>{formatCurrency(order.totalPrice)}</TableCell>
                     <TableCell>
-                      <Link href={`/order/${order.id}`}>
-                        <span className='px-2'>Details</span>
+                      <Link href={`/reservation/${reservation.id}`}>
+                        <span className='px-2 text-sm underline text-blue-600'>Détails</span>
                       </Link>
                     </TableCell>
                   </TableRow>

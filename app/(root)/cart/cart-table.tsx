@@ -42,10 +42,10 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
 
   return (
     <>
-      <h1 className='py-4 h2-bold'>Shopping Cart</h1>
+      <h1 className='py-4 h2-bold'>Panier</h1>
       {!cart || cart.items.length === 0 ? (
         <div>
-          Cart is empty. <Link href='/'>Go Shopping</Link>
+          panier est vide . <Link href='/'>Faire une reservation </Link>
         </div>
       ) : (
         <div className='grid md:grid-cols-4 md:gap-5'>
@@ -53,7 +53,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Item</TableHead>
+                  <TableHead>Article</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -79,7 +79,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                             ⏱️ Jours : {item.totalDays}
                           </p>
                           <p className='text-sm text-gray-800 font-bold'>
-                            💰 Total : {item.totalPrice?.toFixed(2)} €
+                            💰 Total : {item.totalPrice?.toFixed(2)} DT
                           </p>
                           <Button
                             variant='ghost'
@@ -113,7 +113,7 @@ const CartTable = ({ cart }: { cart?: Cart }) => {
                   startTransition(() => router.push('/shipping-address'))
                 }
               >
-                Proceed to Checkout
+                Passer à la caisse
               </Button>
             </CardContent>
           </Card>

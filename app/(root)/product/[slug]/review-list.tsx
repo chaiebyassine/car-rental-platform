@@ -37,7 +37,7 @@ const ReviewList = ({
     loadReviews();
   }, [productId]);
 
-  // Reload reviews after created or updated
+ 
   const reload = async () => {
     const res = await getReviews({ productId });
     setReviews([...res.data]);
@@ -45,7 +45,7 @@ const ReviewList = ({
 
   return (
     <div className='space-y-4'>
-      {reviews.length === 0 && <div>No reviews yet</div>}
+      {reviews.length === 0 && <div>Aucun avis pour le moment</div>}
       {userId ? (
         <ReviewForm
           userId={userId}
@@ -54,14 +54,14 @@ const ReviewList = ({
         />
       ) : (
         <div>
-          Please
+         S'il te plaît
           <Link
             className='text-blue-700 px-2'
             href={`/sign-in?callbackUrl=/product/${productSlug}`}
           >
-            sign in
+            se connecter
           </Link>
-          to write a review
+          écrire une critique
         </div>
       )}
       <div className='flex flex-col gap-3'>

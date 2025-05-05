@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider> {/* ✅ enveloppe ici */}
+    <SessionProvider> 
       <div className='flex h-screen flex-col'>
         <Header />
         <main className='flex-1 wrapper'>{children}</main>

@@ -9,19 +9,27 @@ const currency = z
     'Price must have exactly two decimal places'
   );
 
-// Schema for inserting products
-export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters'),
-  category: z.string().min(3, 'Category must be at least 3 characters'),
-  brand: z.string().min(3, 'Brand must be at least 3 characters'),
-  description: z.string().min(3, 'Description must be at least 3 characters'),
-  stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, 'Product must have at least one image'),
-  isFeatured: z.boolean(),
-  banner: z.string().nullable(),
-  price: currency,
-});
+
+
+
+  export const insertProductSchema = z.object({
+    name: z.string(),
+    slug: z.string(),
+    category: z.string(),
+    images: z.array(z.string()),
+    brand: z.string(),
+    description: z.string(),
+    stock: z.number(),
+    isFeatured: z.boolean(),
+    banner: z.string().nullable(),
+  
+    // ✅ Convertit Decimal (ou string) vers number
+    price: z.preprocess((val) => Number(val), z.number()),
+    rating: z.preprocess((val) => Number(val), z.number()),
+    numReviews: z.number(),
+  });
+  
+
 
 // Schema for updating products
 export const updateProductSchema = insertProductSchema.extend({

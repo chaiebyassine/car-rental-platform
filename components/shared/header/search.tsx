@@ -20,19 +20,19 @@ export default function Search({ categories }: { categories: { category: string 
 
   return (
     <div className="flex flex-col gap-2">
-      {/* 💡 Message d'encouragement */}
+     
       <p className="text-xs text-yellow-600 font-medium animate-pulse">
         🔍 Utilisez la recherche pour trouver rapidement votre voiture idéale !
       </p>
 
-      {/* 🔎 Barre de recherche */}
+      
       <form action="/search" method="GET" className="flex gap-2 items-center">
         <Select name="category">
           <SelectTrigger className="w-[60px]">
-            <SelectValue placeholder="All" />
+            <SelectValue placeholder="tout" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="tout">tout</SelectItem>
             {categories.map((x) => (
               <SelectItem key={x.category} value={x.category}>
                 {x.category}

@@ -14,7 +14,7 @@ import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
-  title: 'Sign In',
+  title: 'Se connecter',
 };
 
 const SignInPage = async (props: {
@@ -27,8 +27,15 @@ const SignInPage = async (props: {
   const session = await auth();
 
   if (session) {
+    const role = session.user?.role;
+    
+    if (role === 'ADMIN') {
+      return redirect('/admin/overview');
+    }
+  
     return redirect(callbackUrl || '/');
   }
+  
 
   return (
     <div className='w-full max-w-md mx-auto'>
@@ -43,10 +50,9 @@ const SignInPage = async (props: {
               priority={true}
             />
           </Link>
-          <CardTitle className='text-center'>Sign In</CardTitle>
+          <CardTitle className='text-center'>Se connecter</CardTitle>
           <CardDescription className='text-center'>
-            Sign in to your account
-          </CardDescription>
+          Connectez-vous à votre compte          </CardDescription>
         </CardHeader>
         <CardContent className='space-y-4'>
           <CredentialsSignInForm />

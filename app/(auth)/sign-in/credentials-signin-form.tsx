@@ -24,7 +24,7 @@ const CredentialsSignInForm = () => {
 
     return (
       <Button disabled={pending} className='w-full' variant='default'>
-        {pending ? 'Signing In...' : 'Sign In'}
+        {pending ? 'Signing In...' : 'Se connecter'}
       </Button>
     );
   };
@@ -45,7 +45,7 @@ const CredentialsSignInForm = () => {
           />
         </div>
         <div>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password'>mot de passe</Label>
           <Input
             id='password'
             name='password'
@@ -64,9 +64,9 @@ const CredentialsSignInForm = () => {
         )}
 
         <div className='text-sm text-center text-muted-foreground'>
-          Don&apos;t have an account?{' '}
+          Vous n&apos;avez pas de compte ?{' '}
           <Link href='/sign-up' target='_self' className='link'>
-            Sign Up
+          S'inscrire
           </Link>
         </div>
       </div>
