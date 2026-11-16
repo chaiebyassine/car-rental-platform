@@ -26,21 +26,21 @@ Les clients parcourent le catalogue, choisissent une voiture, réservent sur des
 
 **Page d'accueil** : bandeau de présentation et liste des nouveautés.
 
-![Page d'accueil](docs/screenshots/accueil.png)
+![Page d'accueil](components/accueil.png)
 
 **Recherche et filtres** : recherche par mot-clé et par dates, filtres par catégorie, prix et notation.
 
-![Recherche et filtres](docs/screenshots/recherche.png)
+![Recherche et filtres](components/recherche.png)
 
 **Détail d'une voiture et réservation** : calendrier avec les jours indisponibles en rouge, prix par jour, description, avis des clients et accès au modèle 3D.
 
-![Détail d'une voiture et calendrier de réservation](docs/screenshots/detail-reservation.png)
+![Détail d'une voiture et calendrier de réservation](components/detail-reservation.png)
 
 ### Partie administrateur
 
 **Tableau de bord** : chiffre d'affaires, nombre de réservations, de clients et de voitures, graphique mensuel et réservations en cours de traitement.
 
-![Tableau de bord administrateur](docs/screenshots/admin-tableau-de-bord.png)
+![Tableau de bord administrateur](components/admin-tableau-de-bord.png)
 
 ## Fonctionnalités
 
@@ -92,9 +92,8 @@ naimapfe/
 │   ├── admin/           # Espace administrateur (tableau de bord, voitures, utilisateurs, réservations)
 │   ├── user/            # Espace utilisateur (profil, mes réservations)
 │   └── api/             # Routes API : NextAuth, UploadThing, webhook Stripe
-├── components/          # Composants (admin, réservation, partagés, interface)
+├── components/          # Composants (admin, réservation, partagés, interface) et captures d'écran du README
 ├── db/                  # Client Prisma, données d'exemple et script de seed
-├── docs/screenshots/    # Captures d'écran du README
 ├── email/               # Modèles d'emails (reçu de réservation)
 ├── hooks/               # Hooks React
 ├── lib/                 # Actions serveur, validateurs, PayPal, chiffrement, utilitaires
